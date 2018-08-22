@@ -1,8 +1,10 @@
 /*
  * Create a list that holds all of your cards
  */
-
-
+ const cardList = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt",
+   "fa fa-cube", "fa fa-anchor", "fa fa-leaf", "fa fa-bicycle", "fa fa-diamond", "fa fa-bomb",
+   "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o",
+   "fa fa-cube"];
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -36,3 +38,17 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+//p3 walk through with Mike Wales 5/23 https://www.youtube.com/watch?v=_rUH-sEs68Y
+//declaring cards and adding click event
+const allCards = document.querySelectorAll('.card');
+
+allCards.forEach(function(card) {
+  card.addEventListener('click', function(e) {
+    card.classList.add('open', 'show');
+    if ()
+    card.classList.toggle('match');
+
+    console.log(card);
+  });
+});
