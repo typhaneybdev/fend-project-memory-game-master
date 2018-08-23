@@ -5,6 +5,10 @@
    "fa fa-cube", "fa fa-anchor", "fa fa-leaf", "fa fa-bicycle", "fa fa-diamond", "fa fa-bomb",
    "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o",
    "fa fa-cube"];
+
+//declare empty array to hold flipped cards
+   let flippedCards = [];
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -39,15 +43,33 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-//p3 walk through with Mike Wales 5/23 https://www.youtube.com/watch?v=_rUH-sEs68Y
-//declaring cards and adding click event
+//p3 walk through with Mike Wales 5/23/18 https://www.youtube.com/watch?v=_rUH-sEs68Y
+//declaring cards and adding click event. using tuturial and own logic
 const allCards = document.querySelectorAll('.card');
 
 allCards.forEach(function(card) {
   card.addEventListener('click', function(e) {
-    card.classList.add('open', 'show');
-    if ()
-    card.classList.toggle('match');
+    const clicked = event.target; //https://api.jquery.com/event.target/
+    //pushes flipped card into an array
+    flippedCards.push(clicked); //https://www.w3schools.com/jsref/jsref_push.asp
+      console.log(flippedCards.length);
+      card.classList.add('open', 'show'); //adds class to show flipped card and icon
+
+      //https://matthewcranford.com/memory-game-walkthrough-part-3-matching-pairs/ tutorial for matching 6/8/18
+      if (clicked.classList.contains('card') && flippedCards.length <= 1) {
+
+        if (flippedCards.length === 2) {
+        console.log('2 cards');
+        }
+      }
+console.log(flippedCards);
+
+
+
+
+
+
+
 
     console.log(card);
   });
