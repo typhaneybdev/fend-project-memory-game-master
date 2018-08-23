@@ -48,29 +48,22 @@ function shuffle(array) {
 const allCards = document.querySelectorAll('.card');
 
 allCards.forEach(function(card) {
-  card.addEventListener('click', function(e) {
-    const clicked = event.target; //https://api.jquery.com/event.target/
-    //pushes flipped card into an array
-    flippedCards.push(clicked); //https://www.w3schools.com/jsref/jsref_push.asp
-      console.log(flippedCards.length);
-      card.classList.add('open', 'show'); //adds class to show flipped card and icon
+    card.addEventListener('click', function(e) {
+        const clicked = event.target; //https://api.jquery.com/event.target/
+        //pushes flipped card into an array
+        flippedCards.push(clicked); //https://www.w3schools.com/jsref/jsref_push.asp
+        card.classList.add('open', 'show'); //adds class to show flipped card and icon
+        console.log(flippedCards.length);
 
-      //https://matthewcranford.com/memory-game-walkthrough-part-3-matching-pairs/ tutorial for matching 6/8/18
-      if (clicked.classList.contains('card') && flippedCards.length <= 1) {
+        if (flippedCards.length <= 2) {
+            setTimeout(function() {
+                flippedCards.forEach(function(card) {
+                    card.classList.remove('open', 'show');
+              });
 
-        if (flippedCards.length === 2) {
-        console.log('2 cards');
+              flippedCards = [];
+            }, 1000);
+
         }
-      }
-console.log(flippedCards);
-
-
-
-
-
-
-
-
-    console.log(card);
   });
 });
