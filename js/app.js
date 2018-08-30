@@ -1,13 +1,17 @@
 /*
  * Create a list that holds all of your cards
  */
- const cardList = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt",
+const cards = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt",
    "fa fa-cube", "fa fa-anchor", "fa fa-leaf", "fa fa-bicycle", "fa fa-diamond", "fa fa-bomb",
    "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o",
    "fa fa-cube"];
 
-//declare empty array to hold flipped cards
-   let flippedCards = [];
+const deck = document.querySelector('.deck');
+
+
+function generateCard(card) {
+    return `<li class="card"><i class="fa ${card}"></i></li>`;
+}
 
 /*
  * Display the cards on the page
@@ -45,17 +49,35 @@ function shuffle(array) {
 
 //p3 walk through with Mike Wales 5/23/18 https://www.youtube.com/watch?v=_rUH-sEs68Y
 //declaring cards and adding click event. using tuturial and own logic
+
+initGame();
+
+function initGame() {
+    const cardHTML = cards.map(function(card) {
+          return generateCard(card);
+    });
+console.log(cardHTML);
+    deck.innerHTML = cardHTML.join('');
+}
+
 const allCards = document.querySelectorAll('.card');
+//declare empty array to hold flipped cards
+let flippedCards = [];
 
 allCards.forEach(function(card) {
     card.addEventListener('click', function(e) {
-        const clicked = event.target; //https://api.jquery.com/event.target/
+
+
+        const clicked = e.target; //https://api.jquery.com/event.target/
         //pushes flipped card into an array
         flippedCards.push(clicked); //https://www.w3schools.com/jsref/jsref_push.asp
         card.classList.add('open', 'show'); //adds class to show flipped card and icon
-        console.log(flippedCards.length);
 
-        if (flippedCards.length <= 2) {
+        //check for match
+
+
+        // if they dont't match
+        if (flippedCards.length === 2) {
             setTimeout(function() {
                 flippedCards.forEach(function(card) {
                     card.classList.remove('open', 'show');
@@ -63,7 +85,7 @@ allCards.forEach(function(card) {
 
               flippedCards = [];
             }, 1000);
+          }
 
-        }
   });
 });
