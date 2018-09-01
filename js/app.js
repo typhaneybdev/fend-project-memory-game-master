@@ -7,11 +7,19 @@ const cards = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bo
    "fa fa-cube"];
 
 const deck = document.querySelector('.deck');
+let moves = 0;
 
 
 function generateCard(card) {
     return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
 }
+
+function addMove() { //https://matthewcranford.com/memory-game-walkthrough-part-5-moves-stars/ 6/14 increment moves and change html to move value
+    moves++;
+    const movesText = document.querySelector('.moves');
+    movesText.innerHTML = moves;
+}
+
 
 /*
  * Display the cards on the page
@@ -35,7 +43,6 @@ function shuffle(array) {
     return array;
 }
 
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -48,21 +55,24 @@ function shuffle(array) {
  */
 
 //p3 walk through with Mike Wales 5/23/18 https://www.youtube.com/watch?v=_rUH-sEs68Y
-//declaring cards and adding click event. using tuturial and own logic
-
+//declaring cards and adding click event using tuturial and own logic
 initGame();
 
 function initGame() {
+
     const cardHTML = shuffle(cards).map(function(card) {
           return generateCard(card);
     });
-console.log(cardHTML);
+
     deck.innerHTML = cardHTML.join('');
+
 }
 
 const allCards = document.querySelectorAll('.card');
 //declare empty array to hold flipped cards
 let flippedCards = [];
+
+
 
 allCards.forEach(function(card) {
     card.addEventListener('click', function(e) {
@@ -76,6 +86,9 @@ allCards.forEach(function(card) {
         //check for match
         if (flippedCards.length === 2) {
             if (flippedCards[0].dataset.card == flippedCards[1].dataset.card) {
+
+                addMove();
+                console.log(moves);
                 flippedCards[0].classList.add('match');
                 flippedCards[0].classList.add('open');
                 flippedCards[0].classList.add('show');
@@ -84,6 +97,7 @@ allCards.forEach(function(card) {
                 flippedCards[1].classList.add('open');
                 flippedCards[1].classList.add('show');
                 flippedCards = [];
+
 
             } else { // if no match hide
             setTimeout(function() {
@@ -94,6 +108,7 @@ allCards.forEach(function(card) {
               flippedCards = [];
             }, 1000);
           }
+
         }
 
   });
