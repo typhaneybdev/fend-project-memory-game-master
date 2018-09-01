@@ -10,7 +10,7 @@ const deck = document.querySelector('.deck');
 
 
 function generateCard(card) {
-    return `<li class="card"><i class="fa ${card}"></i></li>`;
+    return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
 }
 
 /*
@@ -53,7 +53,7 @@ function shuffle(array) {
 initGame();
 
 function initGame() {
-    const cardHTML = cards.map(function(card) {
+    const cardHTML = shuffle(cards).map(function(card) {
           return generateCard(card);
     });
 console.log(cardHTML);
@@ -74,10 +74,18 @@ allCards.forEach(function(card) {
         card.classList.add('open', 'show'); //adds class to show flipped card and icon
 
         //check for match
-
-
-        // if they dont't match
         if (flippedCards.length === 2) {
+            if (flippedCards[0].dataset.card == flippedCards[1].dataset.card) {
+                flippedCards[0].classList.add('match');
+                flippedCards[0].classList.add('open');
+                flippedCards[0].classList.add('show');
+
+                flippedCards[1].classList.add('match');
+                flippedCards[1].classList.add('open');
+                flippedCards[1].classList.add('show');
+                flippedCards = [];
+
+            } else { // if no match hide
             setTimeout(function() {
                 flippedCards.forEach(function(card) {
                     card.classList.remove('open', 'show');
@@ -86,6 +94,7 @@ allCards.forEach(function(card) {
               flippedCards = [];
             }, 1000);
           }
+        }
 
   });
 });
