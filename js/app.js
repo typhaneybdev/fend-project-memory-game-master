@@ -9,15 +9,33 @@ const cards = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bo
 const deck = document.querySelector('.deck');
 let moves = 0;
 
-
+//adds html to card deck
 function generateCard(card) {
     return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
 }
 
-function addMove() { //https://matthewcranford.com/memory-game-walkthrough-part-5-moves-stars/ 6/14 increment moves and change html to move value
+function addMove() { //https://matthewcranford.com/memory-game-walkthrough-part-5-moves-stars/ 6/14 increment moves and change html to move value, hide stars
     moves++;
     const movesText = document.querySelector('.moves');
     movesText.innerHTML = moves;
+}
+//function to hide stars
+function hideStar() {
+    const starList = document.querySelectorAll('.stars li');
+    for (star of starList) {
+        if (star.style.display !== 'none') {
+            star.style.display = 'none';
+            break;
+        }
+    }
+}
+
+//hides star in nodelist at 16 moves and 24 moves
+function checkScore() {
+    if (moves === 16 || moves === 24) {
+        hideStar();
+        hideStar();
+    }
 }
 
 
@@ -68,6 +86,7 @@ function initGame() {
 
 }
 
+
 const allCards = document.querySelectorAll('.card');
 //declare empty array to hold flipped cards
 let flippedCards = [];
@@ -82,12 +101,15 @@ allCards.forEach(function(card) {
         //pushes flipped card into an array
         flippedCards.push(clicked); //https://www.w3schools.com/jsref/jsref_push.asp
         card.classList.add('open', 'show'); //adds class to show flipped card and icon
+        addMove();
+        checkScore();
 
         //check for match
         if (flippedCards.length === 2) {
             if (flippedCards[0].dataset.card == flippedCards[1].dataset.card) {
 
-                addMove();
+
+
                 console.log(moves);
                 flippedCards[0].classList.add('match');
                 flippedCards[0].classList.add('open');
