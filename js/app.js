@@ -8,6 +8,9 @@ const cards = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bo
 
 const deck = document.querySelector('.deck');
 let moves = 0;
+let clockOff = true;
+let time = 0;
+let clockID;
 
 //adds html to card deck
 function generateCard(card) {
@@ -29,7 +32,6 @@ function hideStar() {
         }
     }
 }
-
 //hides star in nodelist at 16 moves and 24 moves
 function checkScore() {
     if (moves === 16 || moves === 24) {
@@ -38,6 +40,29 @@ function checkScore() {
     }
 }
 
+function startClock() {//add timer https://matthewcranford.com/memory-game-walkthrough-part-6-the-clock/ 6/15
+      clockId = setInterval(() => {
+      time++;
+      displayTime();
+    }, 1000);
+}
+
+function stopClock() {
+    clearInterval(clockID);
+}
+
+function displayTime() {
+    const clock = document.querySelector('.clock');
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    if (seconds < 10) {
+        clock.innerHTML = `${minutes}:0${seconds}`;
+    } else {
+        clock.innerHTML = `${minutes}:${seconds}`;
+    }
+    console.log(clock);
+    clock.innerHTML = time;
+}
 
 /*
  * Display the cards on the page
@@ -98,19 +123,23 @@ allCards.forEach(function(card) {
 
 
         const clicked = e.target; //https://api.jquery.com/event.target/
+
+
+        if (clockOff) {
+            startClock();
+            clockOff = false;
+          }
+
         //pushes flipped card into an array
         flippedCards.push(clicked); //https://www.w3schools.com/jsref/jsref_push.asp
         card.classList.add('open', 'show'); //adds class to show flipped card and icon
         addMove();
         checkScore();
 
+
         //check for match
         if (flippedCards.length === 2) {
-            if (flippedCards[0].dataset.card == flippedCards[1].dataset.card) {
-
-
-
-                console.log(moves);
+            if (flippedCards[0].dataset.card == flippedCards[1].dataset.card) { //todo fix click on same card matches
                 flippedCards[0].classList.add('match');
                 flippedCards[0].classList.add('open');
                 flippedCards[0].classList.add('show');

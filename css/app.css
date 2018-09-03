@@ -107,3 +107,56 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+.modal_background { /*<!--https://matthewcranford.com/memory-game-walkthrough-part-7-making-a-modal/-->*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%
+    width: 100%
+    background: rgba(0,0,0, 0.438);
+}
+
+.modal_body {
+    position: relative;
+    width: 400px;
+    height: 300px;
+    transform: translate(110%, 70%);
+    background: #ffffff;
+}
+
+.modal_heading {
+    display: flex;
+    justify: space-between;
+    align-items: center;
+    padding: 0 1.5rem;
+    border-bottom: 1px solid purple;
+}
+
+.modal_close {
+    font-weight: bold;
+    font-size: 2rem;
+    padding-left: 140px;
+
+}
+
+.modal_stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid purple;
+}
+
+.modal_buttons {
+  display: flex;
+  justify: space-around;
+  padding: 1rem;
+}
+.modal_btn_cancel {
+
+}
+
+.modal_btn_replay {
+
+}
