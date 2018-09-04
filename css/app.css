@@ -120,7 +120,7 @@ h1 {
 .modal_body {
     position: relative;
     width: 400px;
-    height: 300px;
+    border-radius: 5px;
     transform: translate(110%, 70%);
     background: #ffffff;
 }
@@ -149,14 +149,18 @@ h1 {
 }
 
 .modal_buttons {
-  display: flex;
-  justify: space-around;
-  padding: 1rem;
-}
-.modal_btn_cancel {
-
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
 }
 
-.modal_btn_replay {
+.modal_btn {
+    width: 60px;
+    height: 30px;
+    border-color: teal;
+    border-radius: 3px;
+}
 
+.hide {
+    display: none;
 }

@@ -7,10 +7,13 @@ const cards = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bo
    "fa fa-cube"];
 
 const deck = document.querySelector('.deck');
+const total_pairs = 8;
 let moves = 0;
 let clockOff = true;
 let time = 0;
 let clockID;
+let matched = 0;
+
 
 //adds html to card deck
 function generateCard(card) {
@@ -51,7 +54,7 @@ function stopClock() {
     clearInterval(clockID);
 }
 
-function displayTime() {
+function displayTime() { // todo display time 0:00
     const clock = document.querySelector('.clock');
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
@@ -63,6 +66,79 @@ function displayTime() {
     console.log(clock);
     clock.innerHTML = time;
 }
+
+function toggleModal() {
+    const modal = document.querySelector('.modal_background');
+    modal.classList.toggle('hide');
+}
+toggleModal();
+
+
+function getStars() {
+    stars = document.querySelectorAll('.stars li');
+    starCount = 0;
+    for (star of stars) {
+        if (star.style.display !== 'none') {
+            starCount++;
+        }
+    }
+    return starCount;
+}
+
+function writeModalStats() { //https://matthewcranford.com/memory-game-walkthrough-part-7-making-a-modal/ 6/17
+    const timeStat = document.querySelector('.modal_time');
+    const clockTime = document.querySelector('.clock').innerHTML;
+    const movesStat = document.querySelector('.modal_moves');
+    const starsStat = document.querySelector('.modal_stars');
+    const stars = getStars();
+
+    timeStat.innerHTML = `Time = ${clockTime}`;
+    movesStat.innerHTML = `Moves = ${moves}`;
+    starsStat.innerHTML = `Stars = ${stars}`;
+
+}
+toggleModal();
+writeModalStats();
+
+function resetGame() { //https://matthewcranford.com/memory-game-walkthrough-part-8-putting-it-all-together/ 6/18
+      resetClockTime();
+      resetMoves();
+      resetStars();
+      shuffle(cards);
+}
+
+function resetClockTime() { //https://matthewcranford.com/memory-game-walkthrough-part-8-putting-it-all-together/ 6/18
+    stopClock();
+    clockOff = true;
+    time = 0;
+    displayTime();
+}
+
+function resetMoves() {
+    moves = 0;
+    document.querySelector('.moves').innerHTML = moves;
+}
+
+function resetStars() {
+    stars = 0;
+    const starList = document.querySelectorAll('.stars li');
+    for (star of starList) {
+        star.style.display = 'inline';
+    }
+}
+
+function gameOver() {
+    stopClock ();
+    writeModalStats();
+
+}
+
+if (matched === total_pairs) {
+    gameOver();
+    toggleModal();
+}
+
+
 
 /*
  * Display the cards on the page
@@ -111,6 +187,17 @@ function initGame() {
 
 }
 
+const cancelModal = document.querySelector('.modal_btn_cancel');
+      cancelModal.addEventListener('click', function(e) {
+        toggleModal();
+      })
+
+const replay = document.querySelector('.modal_btn_replay');
+      replay.addEventListener('click', function(e) {
+        resetGame();
+        toggleModal();
+      })
+
 
 const allCards = document.querySelectorAll('.card');
 //declare empty array to hold flipped cards
@@ -148,6 +235,7 @@ allCards.forEach(function(card) {
                 flippedCards[1].classList.add('open');
                 flippedCards[1].classList.add('show');
                 flippedCards = [];
+                matched++;
 
 
             } else { // if no match hide
