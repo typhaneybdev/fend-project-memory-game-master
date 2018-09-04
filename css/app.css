@@ -121,7 +121,8 @@ h1 {
     position: relative;
     width: 400px;
     border-radius: 5px;
-    transform: translate(110%, 70%);
+    transform: translate(115%, 70%);
+    z-index: 100;
     background: #ffffff;
 }
 

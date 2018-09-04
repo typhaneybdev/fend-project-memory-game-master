@@ -55,7 +55,7 @@ function stopClock() {
     clearInterval(clockID);
 }
 
-function displayTime() { // todo display time 0:00
+function displayTime() { //display time 0:00
     const clock = document.querySelector('.clock');
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
@@ -68,14 +68,14 @@ function displayTime() { // todo display time 0:00
     }
 }
 
-function toggleModal() {
+function toggleModal() { // function to toggle modal
     const modal = document.querySelector('.modal_background');
     modal.classList.toggle('hide');
 }
 toggleModal();
 
 
-function getStars() {
+function getStars() { //function to count stars for modal
     stars = document.querySelectorAll('.stars li');
     starCount = 0;
     for (star of stars) {
@@ -86,7 +86,7 @@ function getStars() {
     return starCount;
 }
 
-function writeModalStats() { //https://matthewcranford.com/memory-game-walkthrough-part-7-making-a-modal/ 6/17
+function writeModalStats() { //https://matthewcranford.com/memory-game-walkthrough-part-7-making-a-modal/ 6/17 writes game data to modal
     const timeStat = document.querySelector('.modal_time');
     const clockTime = document.querySelector('.clock').innerHTML;
     const movesStat = document.querySelector('.modal_moves');
@@ -99,13 +99,14 @@ function writeModalStats() { //https://matthewcranford.com/memory-game-walkthrou
 
 }
 toggleModal();
-writeModalStats();
 
 function resetGame() { //https://matthewcranford.com/memory-game-walkthrough-part-8-putting-it-all-together/ 6/18
-      resetClockTime();
-      resetMoves();
-      resetStars();
-      shuffle(cards);
+    //resetClockTime();
+    //resetMoves();
+    //resetStars();
+    //resetCards()
+    location.reload(); //https://developer.mozilla.org/en-US/docs/Web/API/Location/reload reloads
+
 }
 
 function resetClockTime() { //https://matthewcranford.com/memory-game-walkthrough-part-8-putting-it-all-together/ 6/18
@@ -128,19 +129,21 @@ function resetStars() {
     }
 }
 
-function gameOver() {
-    stopClock ();
-    writeModalStats();
-
+function resetCards() {
+    const cards = document.querySelectorAll('.deck li');
+    for (let card of cards) {
+      card.className = 'card';
+    }
 }
 
-if (matched === total_pairs) {
-    gameOver();
+function gameOver() {
+
+    if (matched === 8) {
+    stopClock();
+    writeModalStats();
     toggleModal();
 }
-
-
-
+}
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -185,12 +188,16 @@ function initGame() {
     });
 
     deck.innerHTML = cardHTML.join('');
-
 }
 
 const cancelModal = document.querySelector('.modal_btn_cancel');
       cancelModal.addEventListener('click', function(e) {
         toggleModal();
+      })
+
+const closeModal = document.querySelector('.modal_close');
+      closeModal.addEventListener('click', function(e) {
+      toggleModal();
       })
 
 const replay = document.querySelector('.modal_btn_replay');
@@ -207,7 +214,6 @@ const restart = document.querySelector('.restart');
 const allCards = document.querySelectorAll('.card');
 //declare empty array to hold flipped cards
 let flippedCards = [];
-
 
 
 allCards.forEach(function(card) {
@@ -240,7 +246,9 @@ allCards.forEach(function(card) {
                 flippedCards[1].classList.add('open');
                 flippedCards[1].classList.add('show');
                 flippedCards = [];
-                matched++;
+                matched += 1;
+                gameOver();
+                console.log(matched);
 
 
             } else { // if no match hide
