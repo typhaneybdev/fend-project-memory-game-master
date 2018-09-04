@@ -102,40 +102,9 @@ function writeModalStats() { //https://matthewcranford.com/memory-game-walkthrou
 toggleModal();
 
 
-function resetGame() { //https://matthewcranford.com/memory-game-walkthrough-part-8-putting-it-all-together/ 6/18
-  //resetClockTime();
-  //resetMoves();
-  //resetStars();
-  //resetCards()
-  location.reload(); //https://developer.mozilla.org/en-US/docs/Web/API/Location/reload reloads
+function resetGame() {
+  location.reload(); //https://developer.mozilla.org/en-US/docs/Web/API/Location/reload reloads game
 
-}
-
-function resetClockTime() { //https://matthewcranford.com/memory-game-walkthrough-part-8-putting-it-all-together/ 6/18
-  stopClock();
-  clockOff = true;
-  time = 0;
-  displayTime();
-}
-
-function resetMoves() {
-  moves = 0;
-  document.querySelector('.moves').innerHTML = moves;
-}
-
-function resetStars() {
-  stars = 0;
-  const starList = document.querySelectorAll('.stars li');
-  for (star of starList) {
-    star.style.display = 'inline';
-  }
-}
-
-function resetCards() {
-  const cards = document.querySelectorAll('.deck li');
-  for (let card of cards) {
-    card.className = 'card';
-  }
 }
 
 function gameOver() {
