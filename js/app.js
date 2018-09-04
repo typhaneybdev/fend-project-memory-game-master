@@ -47,6 +47,7 @@ function startClock() {//add timer https://matthewcranford.com/memory-game-walkt
       clockId = setInterval(() => {
       time++;
       displayTime();
+      console.log(time);
     }, 1000);
 }
 
@@ -58,13 +59,13 @@ function displayTime() { // todo display time 0:00
     const clock = document.querySelector('.clock');
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
-    if (seconds < 10) {
-        clock.innerHTML = `${minutes}:0${seconds}`;
-    } else {
-        clock.innerHTML = `${minutes}:${seconds}`;
-    }
-    console.log(clock);
     clock.innerHTML = time;
+      if (seconds < 10) {
+        clock.innerHTML = `${minutes}:0${seconds}`;
+      } else {
+        clock.innerHTML = `${minutes}:${seconds}`;
+        console.log(clock);
+    }
 }
 
 function toggleModal() {
