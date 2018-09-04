@@ -198,6 +198,10 @@ const replay = document.querySelector('.modal_btn_replay');
         toggleModal();
       })
 
+const restart = document.querySelector('.restart');
+      restart.addEventListener('click', resetGame);
+
+
 
 const allCards = document.querySelectorAll('.card');
 //declare empty array to hold flipped cards
