@@ -6,7 +6,7 @@ const cards = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bo
   "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o",
   "fa fa-cube"
 ];
-
+// global variables declared
 const deck = document.querySelector('.deck');
 const total_pairs = 8;
 let moves = 0;
@@ -52,7 +52,7 @@ function startClock() { //add timer https://matthewcranford.com/memory-game-walk
   }, 1000);
 }
 
-function stopClock() {
+function stopClock() { //stops timer
   clearInterval(clockID);
 }
 
@@ -107,7 +107,7 @@ function resetGame() {
 
 }
 
-function gameOver() {
+function gameOver() { //winning game pops up modal data
 
   if (matched === 8) {
     stopClock();
@@ -153,7 +153,7 @@ function shuffle(array) {
 //declaring cards and adding click event using tuturial and own logic
 initGame();
 
-function initGame() {
+function initGame() { //starts game and initializes deck
 
   const cardHTML = shuffle(cards).map(function(card) {
     return generateCard(card);
@@ -162,54 +162,58 @@ function initGame() {
   deck.innerHTML = cardHTML.join('');
 }
 
-const cancelModal = document.querySelector('.modal_btn_cancel');
+const cancelModal = document.querySelector('.modal_btn_cancel'); //modal cancel button
 cancelModal.addEventListener('click', function(e) {
   resetGame();
 })
 
-const closeModal = document.querySelector('.modal_close');
+const closeModal = document.querySelector('.modal_close'); //modal close
 closeModal.addEventListener('click', function(e) {
   resetGame();
 })
 
-const replay = document.querySelector('.modal_btn_replay');
+const replay = document.querySelector('.modal_btn_replay'); //modal replay button
 replay.addEventListener('click', function(e) {
   resetGame();
   toggleModal();
 })
 
-const restart = document.querySelector('.restart');
+const restart = document.querySelector('.restart'); //restart icon
 restart.addEventListener('click', resetGame);
 
 
 
-const allCards = document.querySelectorAll('.card');
+const allCards = document.querySelectorAll('.card'); //selects all cards in deck
 //declare empty array to hold flipped cards
 let flippedCards = [];
 
 
-allCards.forEach(function(card) {
+allCards.forEach(function(card) { //adds click event listener
   card.addEventListener('click', function(e) {
 
 
-    const clicked = e.target; //https://api.jquery.com/event.target/
+    const clicked = e.target; //https://api.jquery.com/event.target/ declares click event 
 
 
-    if (clockOff) {
+    if (clockOff) { //starts timer
       startClock();
       clockOff = false;
     }
 
-    //pushes flipped card into an array
+    //prevents double click
+    if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {  //pushes flipped card into an array
     flippedCards.push(clicked); //https://www.w3schools.com/jsref/jsref_push.asp
-    card.classList.add('open', 'show'); //adds class to show flipped card and icon
-    addMove();
+    card.classList.add('open', 'show');//adds class to show flipped card and icon
+
+
+
     checkScore();
 
 
     //check for match
     if (flippedCards.length === 2) {
-      if (flippedCards[0].dataset.card == flippedCards[1].dataset.card) { //todo fix click on same card matches
+      addMove();
+      if (flippedCards[0].dataset.card == flippedCards[1].dataset.card) {
         flippedCards[0].classList.add('match');
         flippedCards[0].classList.add('open');
         flippedCards[0].classList.add('show');
@@ -234,6 +238,6 @@ allCards.forEach(function(card) {
       }
 
     }
-
+}
   });
 });
