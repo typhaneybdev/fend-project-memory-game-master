@@ -192,7 +192,7 @@ allCards.forEach(function(card) { //adds click event listener
   card.addEventListener('click', function(e) {
 
 
-    const clicked = e.target; //https://api.jquery.com/event.target/ declares click event 
+    const clicked = e.target; //https://api.jquery.com/event.target/ declares click event
 
 
     if (clockOff) { //starts timer
@@ -201,43 +201,43 @@ allCards.forEach(function(card) { //adds click event listener
     }
 
     //prevents double click
-    if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {  //pushes flipped card into an array
-    flippedCards.push(clicked); //https://www.w3schools.com/jsref/jsref_push.asp
-    card.classList.add('open', 'show');//adds class to show flipped card and icon
+    if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) { //pushes flipped card into an array
+      flippedCards.push(clicked); //https://www.w3schools.com/jsref/jsref_push.asp
+      card.classList.add('open', 'show'); //adds class to show flipped card and icon
 
 
 
-    checkScore();
+      checkScore();
 
 
-    //check for match
-    if (flippedCards.length === 2) {
-      addMove();
-      if (flippedCards[0].dataset.card == flippedCards[1].dataset.card) {
-        flippedCards[0].classList.add('match');
-        flippedCards[0].classList.add('open');
-        flippedCards[0].classList.add('show');
+      //check for match
+      if (flippedCards.length === 2) {
+        addMove();
+        if (flippedCards[0].dataset.card == flippedCards[1].dataset.card) {
+          flippedCards[0].classList.add('match');
+          flippedCards[0].classList.add('open');
+          flippedCards[0].classList.add('show');
 
-        flippedCards[1].classList.add('match');
-        flippedCards[1].classList.add('open');
-        flippedCards[1].classList.add('show');
-        flippedCards = [];
-        matched += 1;
-        gameOver();
-        console.log(matched);
-
-
-      } else { // if no match hide
-        setTimeout(function() {
-          flippedCards.forEach(function(card) {
-            card.classList.remove('open', 'show');
-          });
-
+          flippedCards[1].classList.add('match');
+          flippedCards[1].classList.add('open');
+          flippedCards[1].classList.add('show');
           flippedCards = [];
-        }, 1000);
-      }
+          matched += 1;
+          gameOver();
+          console.log(matched);
 
+
+        } else { // if no match hide
+          setTimeout(function() {
+            flippedCards.forEach(function(card) {
+              card.classList.remove('open', 'show');
+            });
+
+            flippedCards = [];
+          }, 1000);
+        }
+
+      }
     }
-}
   });
 });
